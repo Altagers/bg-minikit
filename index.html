@@ -30,10 +30,12 @@
   <meta property="fc:frame:button:1" content="Feed Duck 🥖">
   <meta property="fc:frame:button:2" content="Workout Duck 💪">
   <meta property="fc:frame:button:3" content="View Stats 📊">
-  <meta property="fc:frame:button:4" content="Play Full Game 🎮">
-  <meta property="fc:frame:button:4:action" content="link">
-  <meta property="fc:frame:button:4:target" content="https://soft-blini-84f353.netlify.app/">
-  <meta property="fc:frame:post_url" content="https://soft-blini-84f353.netlify.app/api/frame-action">
+
+  <meta property="fc:frame:button:4" content="Play Life of Duckie 🦆">
+  <meta property="fc:frame:button:4:action" content="post">
+  <meta property="fc:frame:post_url" content="https://bg-minikit-m6e6.vercel.app/api/frame-action">
+  <meta property="fc:frame:button:4:target" content="https://bg-minikit-m6e6.vercel.app/game">
+  <meta property="fc:frame:post_url" content="https://bg-minikit-m6e6.vercel.app/api/frame-action">
   <meta property="fc:frame:image:aspect_ratio" content="1.91:1">
   
   <!-- Farcaster Mini App Meta Tags -->
@@ -44,7 +46,7 @@
   <!-- Farcaster Frame Manifest Reference -->
   <link rel="farcaster" href="./.well-known/farcaster.json">
   
-  <!-- Предзагрузка аудиофайла -->
+
   <link rel="preload" href="./audio/musicgame.mp3" as="audio" type="audio/mpeg" crossorigin>
   
   <link rel="stylesheet" href="./styles.css">
@@ -186,3 +188,10 @@
   </script>
 </body>
 </html>
+
+<!-- В начало body добавьте: -->
+<div style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+  <a href="/" style="display: inline-block; padding: 8px 16px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 4px; font-family: Arial, sans-serif;">
+    Вернуться на главную
+  </a>
+</div>
