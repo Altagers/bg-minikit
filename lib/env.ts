@@ -9,7 +9,8 @@ export const env = createEnv({
     REDIS_TOKEN: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_URL: z.string().optional().default("https://bg-minikit.vercel.app"),
+    // Заменить строку 12 на:
+    NEXT_PUBLIC_URL: z.string().optional().default("https://bg-minikit-m6e6.vercel.app"),
     NEXT_PUBLIC_APP_ENV: z.string().optional().default("development"),
     NEXT_PUBLIC_MINIKIT_PROJECT_ID: z.string().optional().default(""),
     NEXT_PUBLIC_FARCASTER_HEADER: z.string().optional().default(""),
