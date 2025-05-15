@@ -10,6 +10,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_URL: z.string().optional().default("https://bg-minikit.vercel.app"),
+    NEXT_PUBLIC_APP_ENV: z.string().optional().default("development"),
     NEXT_PUBLIC_MINIKIT_PROJECT_ID: z.string().optional().default(""),
     NEXT_PUBLIC_FARCASTER_HEADER: z.string().optional().default(""),
     NEXT_PUBLIC_FARCASTER_PAYLOAD: z.string().optional().default(""),
