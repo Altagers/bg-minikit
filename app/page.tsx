@@ -1,37 +1,21 @@
-import App from "@/components/App";
-import { env } from "@/lib/env";
-import { Metadata } from "next";
+import React from 'react';
 
-const appUrl = env.NEXT_PUBLIC_URL;
-
-const frame = {
-  version: "next",
-  imageUrl: `${appUrl}/images/feed.png`,
-  button: {
-    title: "Launch App",
-    action: {
-      type: "launch_frame",
-      name: "Mini-app Starter",
-      url: appUrl,
-      splashImageUrl: `${appUrl}/images/splash.png`,
-      splashBackgroundColor: "#ffffff",
-    },
-  },
-};
-
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Mini-app Starter",
-    openGraph: {
-      title: "Mini-app Starter",
-      description: "A starter for Farcastermini-apps",
-    },
-    other: {
-      "fc:frame": JSON.stringify(frame),
-    },
-  };
-}
-
-export default function Home() {
-  return <App />;
+export default function GamePage() {
+  return (
+    <div className="game-container" style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+      <iframe 
+        src="/game-static/index.html" 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          border: 'none',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }}
+        title="Life of Duckie Game"
+        allowFullScreen
+      />
+    </div>
+  );
 }
