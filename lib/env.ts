@@ -1,24 +1,20 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-// https://env.t3.gg/docs/nextjs
 export const env = createEnv({
   server: {
-    NEYNAR_API_KEY: z.string().min(1),
-    JWT_SECRET: z.string().min(1),
-    REDIS_URL: z.string().min(1),
-    REDIS_TOKEN: z.string().min(1),
+    NEYNAR_API_KEY: z.string().optional(),
+    JWT_SECRET: z.string().optional(),
+    REDIS_URL: z.string().optional(),
+    REDIS_TOKEN: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_URL: z.string().min(1),
-    NEXT_PUBLIC_APP_ENV: z
-      .enum(["development", "production"])
-      .optional()
-      .default("development"),
-    NEXT_PUBLIC_MINIKIT_PROJECT_ID: z.string().min(1),
-    NEXT_PUBLIC_FARCASTER_HEADER: z.string().min(1),
-    NEXT_PUBLIC_FARCASTER_PAYLOAD: z.string().min(1),
-    NEXT_PUBLIC_FARCASTER_SIGNATURE: z.string().min(1),
+    NEXT_PUBLIC_URL: z.string().optional().default("https://bg-minikit.vercel.app"),
+    NEXT_PUBLIC_APP_ENV: z.string().optional().default("development"),
+    NEXT_PUBLIC_MINIKIT_PROJECT_ID: z.string().optional().default(""),
+    NEXT_PUBLIC_FARCASTER_HEADER: z.string().optional().default(""),
+    NEXT_PUBLIC_FARCASTER_PAYLOAD: z.string().optional().default(""),
+    NEXT_PUBLIC_FARCASTER_SIGNATURE: z.string().optional().default(""),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
