@@ -9,8 +9,9 @@ export const env = createEnv({
     REDIS_TOKEN: z.string().optional(),
   },
   client: {
- 
+    // Update to include the game-static path if needed
     NEXT_PUBLIC_URL: z.string().optional().default("https://bg-minikit.vercel.app"),
+    NEXT_PUBLIC_GAME_URL: z.string().optional().default("https://bg-minikit.vercel.app/game-static"),
     NEXT_PUBLIC_APP_ENV: z.string().optional().default("development"),
     NEXT_PUBLIC_MINIKIT_PROJECT_ID: z.string().optional().default(""),
     NEXT_PUBLIC_FARCASTER_HEADER: z.string().optional().default(""),
@@ -20,6 +21,7 @@ export const env = createEnv({
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
+    NEXT_PUBLIC_GAME_URL: process.env.NEXT_PUBLIC_GAME_URL,
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
     NEXT_PUBLIC_MINIKIT_PROJECT_ID: process.env.NEXT_PUBLIC_MINIKIT_PROJECT_ID,
     NEXT_PUBLIC_FARCASTER_HEADER: process.env.NEXT_PUBLIC_FARCASTER_HEADER,
