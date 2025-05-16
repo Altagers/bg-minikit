@@ -611,7 +611,7 @@ const DOM = {
 };
 
 // Audio setup
-const backgroundMusic = new Audio('.audio/musicgame.mp3');
+const backgroundMusic = new Audio('./audio/musicgame.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.3;
 
