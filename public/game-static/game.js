@@ -611,22 +611,27 @@ const DOM = {
 };
 
 // Audio setup
-const backgroundMusic = new Audio('./audio/musicgame.mp3');
+const backgroundMusic = new Audio('audio/musicgame.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.3;
 
-// Play background music
+// Fix background music not playing on start
 function playBackgroundMusic() {
-  if (!game.soundMuted) backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  if (!game.soundMuted) {
+    backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  }
 }
 
-// Toggle sound
+// Update toggleSound to properly handle play/pause
 function toggleSound() {
   game.soundMuted = !game.soundMuted;
   DOM.muteButton.textContent = game.soundMuted ? '🔇' : '🔊';
   DOM.muteButton.setAttribute('aria-label', game.soundMuted ? 'Unmute sound' : 'Mute sound');
-  if (game.soundMuted) backgroundMusic.pause();
-  else playBackgroundMusic();
+  if (game.soundMuted) {
+    backgroundMusic.pause();
+  } else {
+    backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  }
 }
 
 // Toggle theme
@@ -1891,10 +1896,6 @@ function init() {
   if (!game.tutorialSeen) {
     showTutorial();
   }
-
-  // Start background music
-  playBackgroundMusic();
-
   // Update game state periodically
   setInterval(() => {
     updateStats();
@@ -1912,6 +1913,9 @@ function init() {
     }
   }, 60000);
 
+  setTimeout(() => {
+    playBackgroundMusic();
+  }, 100);
   // Initial update
   updateStats();
 }
