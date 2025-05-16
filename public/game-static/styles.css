@@ -1514,7 +1514,7 @@ body.dark-theme {
   }
 }
 
-
+/* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .stat-item {
     flex: 1 0 100%;
@@ -1537,12 +1537,12 @@ body.dark-theme {
   }
 }
 
-
+/* Стили для сенсорных устройств */
 .touch-active {
   transform: scale(0.95) !important;
 }
 
-
+/* Поддержка сенсорных событий */
 @media (hover: none) {
   .icon-button:hover, 
   .action-buttons button:hover,
@@ -1551,7 +1551,7 @@ body.dark-theme {
     transform: none;
   }
 }
-
+/* Мобильная оптимизация */
 @media (max-width: 768px) {
   #game-container {
     width: 100%;
@@ -1625,7 +1625,7 @@ body.dark-theme {
   }
 }
 
-
+/* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .stat-item {
     flex: 1 0 100%;
@@ -1648,12 +1648,12 @@ body.dark-theme {
   }
 }
 
-
+/* Стили для сенсорных устройств */
 .touch-active {
   transform: scale(0.95) !important;
 }
 
-
+/* Поддержка сенсорных событий */
 @media (hover: none) {
   .icon-button:hover, 
   .action-buttons button:hover,
@@ -1661,43 +1661,4 @@ body.dark-theme {
   .plant-button:hover {
     transform: none;
   }
-}
-/* Login form styles */
-.login-input-container {
-  margin: 15px 0;
-  width: 100%;
-}
-
-.login-input-container input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  background: #fff;
-  color: #333;
-}
-
-.dark-theme .login-input-container input {
-  background: #2c3e50;
-  border-color: #4a6076;
-  color: #e0e0e0;
-}
-
-#login-button {
-  background: #007bff;
-  color: white;
-}
-
-#login-button:hover {
-  background: #0056b3;
-}
-
-#cancel-button {
-  background: #6c757d;
-  color: white;
-}
-
-#cancel-button:hover {
-  background: #5a6268;
 }
