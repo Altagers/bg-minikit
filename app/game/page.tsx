@@ -1,16 +1,21 @@
-"use client";
+import React from 'react';
 
-import { useEffect } from "react";
-
-export default function GameRedirect() {
-  useEffect(() => {
-    // Перенаправляем на игру внутри приложения, а не на прямой URL
-    window.location.href = "/game-static/index.html";
-  }, []);
-
+export default function GamePage() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <p className="text-xl">Загрузка игры...</p>
+    <div className="game-container" style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
+      <iframe 
+        src="/game-static/index.html" 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          border: 'none',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }}
+        title="Life of Duckie Game"
+        allowFullScreen
+      />
     </div>
   );
 }

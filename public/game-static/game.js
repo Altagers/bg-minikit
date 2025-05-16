@@ -547,16 +547,16 @@ let game = {
   isDarkTheme: false
 };
 
-// Определение мобильного устройства
+
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-// Функция для оптимизации под мобильные устройства
+
 function setupMobileOptimization() {
   if (isMobile) {
-    // Добавляем класс для мобильных устройств
+ 
     document.body.classList.add('mobile-device');
     
-    // Обработка сенсорных событий
+   
     document.querySelectorAll('.icon-button, .action-buttons button, .shop-item, .plant-button').forEach(element => {
       element.addEventListener('touchstart', function() {
         this.classList.add('touch-active');
@@ -615,18 +615,23 @@ const backgroundMusic = new Audio('audio/musicgame.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.3;
 
-// Play background music
+// Fix background music not playing on start
 function playBackgroundMusic() {
-  if (!game.soundMuted) backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  if (!game.soundMuted) {
+    backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  }
 }
 
-// Toggle sound
+// Update toggleSound to properly handle play/pause
 function toggleSound() {
   game.soundMuted = !game.soundMuted;
   DOM.muteButton.textContent = game.soundMuted ? '🔇' : '🔊';
   DOM.muteButton.setAttribute('aria-label', game.soundMuted ? 'Unmute sound' : 'Mute sound');
-  if (game.soundMuted) backgroundMusic.pause();
-  else playBackgroundMusic();
+  if (game.soundMuted) {
+    backgroundMusic.pause();
+  } else {
+    backgroundMusic.play().catch(e => console.warn('Failed to play background music:', e));
+  }
 }
 
 // Toggle theme
@@ -1180,7 +1185,7 @@ function goFishing() {
 
       if (
         fishRect.left + fishRect.width / 2 >= zoneRect.left &&
-        fishRect.left + fishRect影子.width / 2 <= zoneRect.right
+        fishRect.left + fishRect.width / 2 <= zoneRect.right
       ) {
         catchZone.classList.add('success');
         setTimeout(() => catchZone.classList.remove('success'), 300);
@@ -1785,23 +1790,41 @@ function showTutorial() {
 
 // Save game state
 function saveGame() {
-  localStorage.setItem('duckieGame', JSON.stringify(game));
+  // If user is logged in with Farcaster, save to server
+  if (window.farcasterIntegration) {
+    window.farcasterIntegration.saveGameData();
+  } else {
+    // Otherwise save locally
+    localStorage.setItem('duckieGame', JSON.stringify(game));
+  }
 }
 
 // Load game state
-function loadGame() {
-  const saved = localStorage.getItem('duckieGame');
-  if (saved) {
-    game = JSON.parse(saved);
-    // Ensure compatibility with new properties
-    game.lastUpdate = Date.now();
-    game.stats = { ...game.stats, lastDay: new Date().toDateString() };
-    game.upgradeCounts = game.upgradeCounts || {};
-    game.garden = game.garden || [];
-    game.freeRevives = game.freeRevives || 3;
-    game.fishingAttempts = game.fishingAttempts || game.maxFishingAttempts || 5;
-    game.lastFishingReset = game.lastFishingReset || Date.now();
-    updateStats();
+async function loadGame() {
+  // Check if user is logged in with Farcaster
+  let isLoggedIn = false;
+  if (window.farcasterIntegration) {
+    isLoggedIn = await window.farcasterIntegration.checkFarcasterLogin();
+  }
+  
+  if (isLoggedIn) {
+    // Load from server
+    await window.farcasterIntegration.loadGameData();
+  } else {
+    // Load from local storage
+    const saved = localStorage.getItem('duckieGame');
+    if (saved) {
+      game = JSON.parse(saved);
+      // Ensure compatibility with new properties
+      game.lastUpdate = Date.now();
+      game.stats = { ...game.stats, lastDay: new Date().toDateString() };
+      game.upgradeCounts = game.upgradeCounts || {};
+      game.garden = game.garden || [];
+      game.freeRevives = game.freeRevives || 3;
+      game.fishingAttempts = game.fishingAttempts || game.maxFishingAttempts || 5;
+      game.lastFishingReset = game.lastFishingReset || Date.now();
+      updateStats();
+    }
   }
 }
 
@@ -1884,6 +1907,10 @@ function init() {
     button.onclick = () => plant(button.dataset.plant);
   });
 
+  if (window.farcasterIntegration) {
+    window.farcasterIntegration.initFarcasterIntegration();
+  }
+
   // Load saved game state
   loadGame();
 
@@ -1891,10 +1918,6 @@ function init() {
   if (!game.tutorialSeen) {
     showTutorial();
   }
-
-  // Start background music
-  playBackgroundMusic();
-
   // Update game state periodically
   setInterval(() => {
     updateStats();
@@ -1912,6 +1935,9 @@ function init() {
     }
   }, 60000);
 
+  setTimeout(() => {
+    playBackgroundMusic();
+  }, 100);
   // Initial update
   updateStats();
 }
