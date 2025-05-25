@@ -506,7 +506,7 @@ let game = {
   deathChance: 0.15,
   coinsPerFeed: 20,
   xpPerFeed: 20,
-  energyRegen: 100 / 7200,
+  energyRegen: 100 / 3000,
   fitnessTime: 10,
   fishingAttempts: 5,
   maxFishingAttempts: 5,
